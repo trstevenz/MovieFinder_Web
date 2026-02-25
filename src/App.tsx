@@ -14,11 +14,16 @@ function App() {
     let isMounted = true;
 
     const connect = () => {
-      const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-
       let defaultWsUrl = 'wss://moviefinder-server-1.onrender.com';
-      if (isLocalhost || window.location.protocol === 'file:' || !window.location.host) {
-        defaultWsUrl = 'ws://127.0.0.1:3000/ws';
+
+      const isLocalNetwork = window.location.hostname === 'localhost' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.') ||
+        window.location.hostname.startsWith('10.');
+
+      if (import.meta.env.DEV || isLocalNetwork || window.location.protocol === 'file:' || !window.location.host) {
+        const host = window.location.hostname || '127.0.0.1';
+        defaultWsUrl = `ws://${host}:3000/ws`;
       }
 
       const wsUrl = import.meta.env.VITE_WS_URL || defaultWsUrl;
