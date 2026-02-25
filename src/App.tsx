@@ -15,8 +15,11 @@ function App() {
 
     const connect = () => {
       const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-      const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-      const defaultWsUrl = isLocalhost ? `ws://localhost:3000` : `${protocol}//${window.location.host}/ws`;
+
+      let defaultWsUrl = `${protocol}//${window.location.host}/ws`;
+      if (window.location.protocol === 'file:' || !window.location.host) {
+        defaultWsUrl = 'ws://127.0.0.1:3000/ws';
+      }
 
       const wsUrl = import.meta.env.VITE_WS_URL || defaultWsUrl;
       const ws = new WebSocket(wsUrl);
