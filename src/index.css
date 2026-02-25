@@ -18,6 +18,9 @@ body {
   background-color: var(--bg-color);
   color: var(--text-primary);
   height: 100vh;
+  /* Fallback for older browsers */
+  height: 100dvh;
+  /* Dynamic viewport solves mobile cutoff */
   overflow: hidden;
   background-image:
     radial-gradient(circle at 15% 50%, rgba(56, 189, 248, 0.05) 0%, transparent 50%),
@@ -503,5 +506,36 @@ body {
 
   .message-bubble {
     max-width: 90%;
+  }
+
+  .app-header {
+    padding: 1rem;
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+
+  .chat-main {
+    padding: 1rem;
+  }
+
+  .chat-footer {
+    padding: 1rem;
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+
+  .bot-avatar-small {
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+  }
+
+  .chat-input-field {
+    font-size: 16px;
+    /* Prevents auto-zooming on iOS Safari */
+    padding: 0.6rem 0.8rem;
+  }
+
+  .dl-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.95rem;
   }
 }
